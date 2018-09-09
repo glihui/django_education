@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from django.shortcuts import render
 import pymysql
 
@@ -7,7 +8,13 @@ from .models import UserMessage
 
 
 def getform(request):
-    all_messages = UserMessage.objects.all()
-    for message in all_messages:
-        print(message.name)
-    return render(request, 'message_form.html')
+    message = None
+    all_messages = UserMessage.objects.filter(name='guo')
+    if all_messages:
+        message = all_messages[0]
+
+
+
+    return render(request, 'message_form.html', {
+        "my_message":message
+    })
